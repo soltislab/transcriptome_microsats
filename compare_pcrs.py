@@ -4,7 +4,7 @@
 # compare_pcrs.py -a CODE -b CODE
 # CODE is the 1KP 4-letter code for a sample. 
 #
-# Script compare the ePCR results
+# Script to compare the ePCR results
 #
 # Note paths/names that need to be set manually below.
 #
