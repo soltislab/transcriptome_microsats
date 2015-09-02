@@ -22,3 +22,9 @@ Script to compare the ePCR results of amplifying one sample with the primers dev
 ###add_distances.py
 Add genetic distance to table of microsats. 
 
+###DiffMicrosatsBatch.R
+This scrpt is summarizes the ePCR results. It generates a summary containing SSR and flanking region differences.
+
+###Graphs10GeneticID.R
+Generates figure ## of Hodel et al 2015.
+
