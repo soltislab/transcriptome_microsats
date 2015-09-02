@@ -16,6 +16,9 @@ Note that for the project, ORFs were identified using [get_orfs_or_cdss.py](http
 ###getScaffolds.py
 A script to pull sequences from a fasta file based on a list and write to a new file.
 
+###SSR_RepeatFilter.py
+Filters out microsatellite loci likely derived from inferred isoforms of the same locus.
+
 ###compare_pcrs.py
 Script to compare the ePCR results of amplifying one sample with the primers developed from another sample.
 
