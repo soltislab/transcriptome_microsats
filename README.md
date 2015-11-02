@@ -31,3 +31,19 @@ This scrpt is summarizes the ePCR results. It generates a summary containing SSR
 ###Graphs10GeneticID.R
 Generates figure ## of Hodel et al 2015.
 
+###PAL_to_BLAST.R
+This script takes a set of PALs (potentially amplifiable loci) from PAL_FINDER
+and removes duplicates. It then outputs a fasta file of the loci that can be used in a BLAST search.
+
+###BLAST_to_Coding_SSR.R
+This script takes in a .gff annotated genome file from NCBI and BLAST results
+and creates the two input files for the script Coding_SSR.py
+
+###Coding_SSR.py
+This script compares two input files--one ("query") containing the genomic
+locations of SSR loci identified, and one ("subject") containing the locations of translated regions of the genome (CDS).
+
+###Repeat_Numb_Search.R
+This script uses the output from the script Coding_SSR.py and the program
+PAL_FINDER to identify the distribution of repeat motifs among the PALs.
+
