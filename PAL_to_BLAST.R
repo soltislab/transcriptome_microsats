@@ -37,6 +37,7 @@ Loci4 <- which (Filtered$Repeat.Motif.Size == 4)
 Loci5 <- which (Filtered$Repeat.Motif.Size == 5)
 Loci6 <- which (Filtered$Repeat.Motif.Size == 6)
 
+Total = length(Loci2)+length(Loci3)+length(Loci4)+length(Loci5)+length(Loci6)
 
 ## This section calculates the distribution of motifs and writes a file.
 ## The default file is called "Motif_output.txt"
