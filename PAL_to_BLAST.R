@@ -17,7 +17,7 @@
 ##       your input file.  Currently, this script is set up to work with
 ##       genomic (as opposed to transcriptomic) loci.  Upon acceptance of 
 ##       the manuscript, additional input/BLAST files will be added to github
-##       to allow the reader to run all scripts
+##       to allow the reader to run all scripts.
 
 
 Input <- read.table(file = "P_to_B_input.txt", header = TRUE, sep = "\t")
