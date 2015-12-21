@@ -1,18 +1,7 @@
 #!/usr/bin/env python
 
-########################################################################################################################
-#
-#	getScaffolds.py -i sequnce_id_file -s fasta_file -o output_file
-#
-#	Written by: Matt Gitzendanner
-#				University of Florida
-#				Department of Biology
-#				magitz@ufl.edu
-#
-#
 # Script to pull sequences from a fasta file based on a list and write to a new file.
 # Adapted from: https://gist.github.com/brentp/477969
-########################################################################################################################
 
 from Bio import SeqIO
 import sys
