@@ -3,6 +3,7 @@
 # Program name: primer3_in.pl
 # Description: creates a PRIMER3 input file based on SSR search results
 
+# Modified my Matt Gitzendanner (MAG), University of Florida
 # MAG 3/18/15: Modified tags for new primer3 input requirements.
 
 open (IN,"<$ARGV[0]") || die ("\nError: Couldn't open misa.pl results file (*.misa) !\n\n");
@@ -27,9 +28,9 @@ while (<SRC>)
     {
     my ($ssr_nr,$size,$start) = ($1,$2,$3);
     $count++;
-    print OUT "SEQUENCE_ID=$id"."_$ssr_nr\nSEQUENCE_TEMPLATE=$seq\n";
+    print OUT "SEQUENCE_ID=$id"."_$ssr_nr\nSEQUENCE_TEMPLATE=$seq\n"; #MAG: updated tag
     print OUT "PRIMER_PRODUCT_SIZE_RANGE=100-280\n";
-    print OUT "SEQUENCE_TARGET=",$start-3,",",$size+6,"\n";
+    print OUT "SEQUENCE_TARGET=",$start-3,",",$size+6,"\n"; #MAG: Changed tag
     print OUT "PRIMER_MAX_END_STABILITY=250\n=\n"
     };
   };
