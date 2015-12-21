@@ -5,6 +5,10 @@ Scripts used in evaluating microsatellite loci developed from transcriptomes
 
 These scripts were used to process the output of the microsatellite finding program MISA ([Dieringer and Schlötterer, 2003](http://onlinelibrary.wiley.com/doi/10.1046/j.1471-8286.2003.00351.x/abstract)). MISA was run on the transcriptome datasets from the [1,000 Plant Transcriptome Project](http://onekp.com) and the results summarized with these and previously released scripts. 
 
+
+Please see the [Tutorial](Tutorial/README.md) for a walkthrough of developing microsatellite loci from a sample dataset and more complete usage and output information.
+
+
 What follows is a brief description of the scripts available here.
 
 ##Scripts and their functions:
