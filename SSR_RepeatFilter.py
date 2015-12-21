@@ -13,8 +13,8 @@ if len(sys.argv) < 2:
 else:
 	InFileName = sys.argv[1] #MISA output
 	file_index = sys.argv[2] #e.g. species name
-	OutFileName1 = "FilteredSSRs/repeats/" + file_index + ".repeat.txt"
-	OutFileName2 = "FilteredSSRs/" + file_index + ".misa_SSR.results"  #output
+	OutFileName1 = file_index + ".repeat.txt"
+	OutFileName2 = file_index + ".misa_SSR.results"  #output
 
 	WriteOutFile = True
 	InFile =open(InFileName, 'r')

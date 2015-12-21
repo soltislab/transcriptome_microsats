@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 ########################################################################################################################
-# Add genetic distance to table of microsats for Oenothera
+# Add genetic distance to table of microsats
 #
 #  Written by: Matt Gitzendanner
 #				University of Florida
