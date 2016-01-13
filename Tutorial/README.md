@@ -176,6 +176,78 @@ From these files you can now decide which microsatellite loci you wish to order 
 
 
 
+# Tutorial for evaluating if loci are in translated regions
+
+This tutorial will walk the user through generating a list of PALs (potentially 
+amplifiable loci) for genomic (as opposed to transcriptomic) microsatellites, running 
+scripts and a BLAST search on those PALs to determine if they are in translated regions 
+of the genome, and obtaining the distribution of repeat number motifs for the loci.
+
+
+This section uses the software PAL_FINDER, the annotated genome of Glycine max, 
+and custom scripts described below.  
+
+1. Change directory to "PAL"
+
+3. Download and install PAL_FINDER 
+	(http://sourceforge.net/projects/palfinder/)
+	
+	The file "README.txt" will guide the user on how to use PAL_FINDER
+	
+	The required input for PAL_FINDER is a config file (default config.txt)
+	
+4. Run PAL_FINDER
+	
+	We use the file "config_g1.txt" to run PAL_FINDER.
+	
+	PAL_FINDER will output: a set of PALs in a .txt file
+	The file "P_to_B_input.txt" is a sample file that would
+	be the output of running PAL_FINDER, and is ready to use
+	in the next step.
+	
+5. Run PAL_to_BLAST.R
+	You can use the provided input file "P_to_B_input.txt" or use 
+ 	an output file from PAL_FINDER.  If you use a different file,
+	you need to change the name of the file read into the variable
+	'Input' in the script.
+	This script will output two files: 'Forward.fasta' and 'Reverse.fasta'
+
+6. Perform a BLASTn search by querying the two files from the previous 
+	step against the Glycine max annotated genome (NCBI Assembly Accession
+	# GCF_000004515.3).  If you run BLASTn through the NCBI website, you
+	may need to divide the two fasta files into several smaller files to
+	ensure that the job will finish before it runs out of computing 
+	resources.  Alternatively, you could build a local BLAST database to
+	perform the search, or build a BLAST database on a computing resource
+	such as galaxy, which would be able to perform a BLAST search on the
+	entire file.  
+		
+	The files we obtained from the BLASTn search are "G_R_0764-0510-HitTable.csv"
+	and "G_R_0803-0253-HitTable.csv", which are available at:
+	https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
+
+7. Run BLAST_to_Coding_SSR.R (requires R module tidyr)
+	This script requires three input files: the two BLAST hit tables from the 
+	previous step, and the Glycine max annotated genome file:
+	"GCF_000004515.3_V1.1_genomic.gff" available at 
+	https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
+	
+	This script will output the files "CDS.txt" and "query.txt"
+
+8. Run Coding_SSR.py
+
+	This script takes the files "CDS.txt" and "query.txt" as input.  The user will be
+	asked to enter a meaningful prefix, and the output file will be called:
+	"<prefix>_in_coding.txt".  For example, if your prefix is "testing", then your 
+	output file would be called "testing_in_coding.txt"
+
+9. Run Repeat_Numb_Search.R
+
+
+
+
+
+
 
 #Citations
 
