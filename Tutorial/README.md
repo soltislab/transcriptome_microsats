@@ -214,7 +214,7 @@ and custom scripts described below.
 
 6. Perform a BLASTn search by querying the two files from the previous 
 	step against the Glycine max annotated genome (NCBI Assembly Accession
-	# GCF_000004515.3).  If you run BLASTn through the NCBI website, you
+	number GCF_000004515.3).  If you run BLASTn through the NCBI website, you
 	may need to divide the two fasta files into several smaller files to
 	ensure that the job will finish before it runs out of computing 
 	resources.  Alternatively, you could build a local BLAST database to
