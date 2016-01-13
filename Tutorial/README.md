@@ -238,8 +238,10 @@ and custom scripts described below.
 
 	This script takes the files "CDS.txt" and "query.txt" as input.  The user will be
 	asked to enter a meaningful prefix, and the output file will be called:
-	"<prefix>_in_coding.txt".  For example, if your prefix is "testing", then your 
-	output file would be called "testing_in_coding.txt"
+	"<prefix>_in_coding.txt".  For example, if your prefix is "test", then your 
+	output file would be called "test_in_coding.txt"
+	
+	>python Query.txt CDS.txt test
 
 8. Run Repeat_Numb_Search.R
 
