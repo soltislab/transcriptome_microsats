@@ -176,7 +176,7 @@ From these files you can now decide which microsatellite loci you wish to order 
 
 
 
-## Tutorial for evaluating if loci are in translated regions
+## Tutorial for evaluating if loci are in translated regions using Glycine
 
 This tutorial will walk the user through generating a list of PALs (potentially 
 amplifiable loci) for genomic (as opposed to transcriptomic) microsatellites, running 
@@ -187,7 +187,9 @@ of the genome, and obtaining the distribution of repeat number motifs for the lo
 This section uses the software PAL_FINDER, the annotated genome of Glycine max, 
 and custom scripts described below.  
 
-1. Change directory to "Glycine"
+1. Go to the main directory of your cloned repository
+
+  >cd transcriptome_microsats/
 
 2. Download and install PAL_FINDER 
 	(http://sourceforge.net/projects/palfinder/)
@@ -198,19 +200,22 @@ and custom scripts described below.
 	
 3. Run PAL_FINDER
 	
-	We use the file "config_g1.txt" to run PAL_FINDER.
+	We use the file "config_g1.txt" to run PAL_FINDER:
+	
+	>perl pal_finder_v0.02.04.pl config_g1.txt
 	
 	PAL_FINDER will output: a set of PALs in a .txt file
 	The file "P_to_B_input.txt" is a sample file that would
 	be the output of running PAL_FINDER, and is ready to use
 	in the next step.
 	
-4. Run PAL_to_BLAST.R
-	You can use the provided input file "P_to_B_input.txt" or use 
+4. Run the script PAL_to_BLAST.R
+	You can use the provided file "P_to_B_input.txt" or use 
  	an output file from PAL_FINDER.  If you use a different file,
 	you need to change the name of the file read into the variable
 	'Input' in the script.
-	This script will output two files: 'Forward.fasta' and 'Reverse.fasta'
+	If you run this script, it  will output two files: 'Forward.fasta' and 'Reverse.fasta'
+	These two files are already included in the main directory of the repository.
 
 5. Perform a BLASTn search by querying the two files from the previous 
 	step against the Glycine max annotated genome (NCBI Assembly Accession
