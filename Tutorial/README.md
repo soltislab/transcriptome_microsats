@@ -246,7 +246,7 @@ and custom scripts described below.
 	"<prefix>_in_coding.txt".  For example, if your prefix is "test", then your 
 	output file would be called "test_in_coding.txt"
 	
-	>python Query.txt CDS.txt test
+	>python Coding_SSR.py Query.txt CDS.txt test
 
 8. Run Repeat_Numb_Search.R
 
