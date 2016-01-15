@@ -20,7 +20,7 @@
 ##       to allow the reader to run all scripts.
 
 
-Input <- read.table(file = "P_to_B_input.txt", header = TRUE, sep = "\t")
+Input <- read.table(file = "Glycine/P_to_B_input.txt", header = TRUE, sep = "\t")
 
 
 # This section removes duplicate loci from the data set
