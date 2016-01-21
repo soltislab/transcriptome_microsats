@@ -18,13 +18,13 @@
 
 ## Read in file that is output of CodingSSR.py
 
-Loci <- read.table("coding_loci_input.txt", fill=TRUE)
+Loci <- read.table("test_in_coding.txt", fill=TRUE)
 Loci <- head(Loci, -1)
 
 ## Read in file that is output of PAL_FINDER
 
-All_PAL <- read.csv("PAL_summary_input.csv")
-
+All_PAL <- read.table("PAL_summary_input.txt", sep="\t", header=TRUE)
+?read.table
 All_PAL <- na.omit(All_PAL)
 
 ## Trimming unnecessary columns
