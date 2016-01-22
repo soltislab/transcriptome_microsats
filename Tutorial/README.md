@@ -193,11 +193,11 @@ and custom scripts described below.
 
 ##2. Download and install PAL_FINDER 
 
-	http://sourceforge.net/projects/palfinder/
+http://sourceforge.net/projects/palfinder/
 	
-	The file "README.txt" will guide the user on how to use PAL_FINDER
+The file "README.txt" will guide the user on how to use PAL_FINDER
 	
-	The required input for PAL_FINDER is a config file (default config.txt)
+The required input for PAL_FINDER is a config file (default config.txt)
 	
 ##3. Run PAL_FINDER
 	
