@@ -192,6 +192,7 @@ and custom scripts described below.
   >cd transcriptome_microsats/
 
 ##2. Download and install PAL_FINDER 
+
 	(http://sourceforge.net/projects/palfinder/)
 	
 	The file "README.txt" will guide the user on how to use PAL_FINDER
@@ -204,55 +205,33 @@ and custom scripts described below.
 	
 	>perl pal_finder_v0.02.04.pl config_g1.txt
 	
-	PAL_FINDER will output: a set of PALs in a .txt file
-	The file "P_to_B_input.txt" is a sample file that would
-	be the output of running PAL_FINDER, and is ready to use
-	in the next step.
+	PAL_FINDER will output: a set of PALs in a .txt file. The file "P_to_B_input.txt" is a sample file that would be the output of running PAL_FINDER, and is ready to use in the next step.
 	
 ##4. Run the script PAL_to_BLAST.R
-	You can use the provided file "P_to_B_input.txt" or use 
- 	an output file from PAL_FINDER.  If you use a different file,
-	you need to change the name of the file read into the variable
-	'Input' in the script.
-	If you run this script, it  will output two files: 'Forward.fasta' and 'Reverse.fasta'
-	These two files are already included in the main directory of the repository.
 
-##5. Perform a BLASTn search by querying the two files from the previous 
-	step against the Glycine max annotated genome (NCBI Assembly Accession
-	number GCF_000004515.3).  If you run BLASTn through the NCBI website, you
-	may need to divide the two fasta files into several smaller files to
-	ensure that the job will finish before it runs out of computing 
-	resources.  Alternatively, you could build a local BLAST database to
-	perform the search, or build a BLAST database on a computing resource
-	such as galaxy, which would be able to perform a BLAST search on the
-	entire file.  
+	You can use the provided file "P_to_B_input.txt" or use an output file from PAL_FINDER.  If you use a different file you need to change the name of the file read into the variable 'Input' in the script. If you run this script, it  will output two files: 'Forward.fasta' and 'Reverse.fasta' These two files are already included in the main directory of the repository.
+
+##5. Perform a BLASTn search
+
+  Querying the two files from the previous step against the Glycine max annotated genome (NCBI Assembly Accession number GCF_000004515.3).  If you run BLASTn through the NCBI website, you may need to divide the two fasta files into several smaller files to ensure that the job will finish before it runs out of computing resources.  Alternatively, you could build a local BLAST database to perform the search, or build a BLAST database on a computing resource such as galaxy, which would be able to perform a BLAST search on the entire file.  
 		
-	The files we obtained from the BLASTn search are "G_R_0764-0510-HitTable.csv"
-	and "G_R_0803-0253-HitTable.csv", which are available at:
-	https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
+	The files we obtained from the BLASTn search are "G_R_0764-0510-HitTable.csv" and "G_R_0803-0253-HitTable.csv", which are available at: https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
 
 ##6. Run BLAST_to_Coding_SSR.R (requires R module tidyr)
-	This script requires three input files: the two BLAST hit tables from the 
-	previous step, and the Glycine max annotated genome file:
-	"GCF_000004515.3_V1.1_genomic.gff" available at 
-	https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
+	
+	This script requires three input files: the two BLAST hit tables from the previous step, and the Glycine max annotated genome file: "GCF_000004515.3_V1.1_genomic.gff" available at https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
 	
 	This script will output the files "CDS.txt" and "query.txt"
 
 ##7. Run Coding_SSR.py
 
-	This script takes the files "CDS.txt" and "query.txt" as input.  The user will be
-	asked to enter a meaningful prefix, and the output file will be called:
-	"<prefix>_in_coding.txt".  For example, if your prefix is "test", then your 
-	output file would be called "test_in_coding.txt"
+	This script takes the files "CDS.txt" and "query.txt" as input.  The user will be asked to enter a meaningful prefix, and the output file will be called: "<prefix>_in_coding.txt".  For example, if your prefix is "test", then your output file would be called "test_in_coding.txt"
 	
 	>python Coding_SSR.py Query.txt CDS.txt test
 
 ##8. Run Repeat_Numb_Search.R
 
-  The input file for this script are "test_in_coding.txt", which is the output of the
-  script "Coding_SSR.py", and "PAL_summary_input.txt", which is the output of running
-  PAL_FINDER.  This script will produce an output file "Coding_motif_output.txt"
+  The input file for this script are "test_in_coding.txt", which is the output of the script "Coding_SSR.py", and "PAL_summary_input.txt", which is the output of running PAL_FINDER.  This script will produce an output file "Coding_motif_output.txt"
 
 
 
