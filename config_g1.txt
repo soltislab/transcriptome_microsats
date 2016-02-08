@@ -19,7 +19,7 @@
 # Enter 1 to design primers or 0 if you just want to calculate the
 # microsatellite statistics (faster).
 
-findPrimers 0
+findPrimers 1
 
 #------------------ Platform Input Parameters ------------------#
 #
