@@ -205,7 +205,8 @@ We use the file "config_g1.txt" to run PAL_FINDER:
 	
 	>perl pal_finder_v0.02.04.pl config_g1.txt
 	
-PAL_FINDER will output: a set of PALs in a .txt file. The file "P_to_B_input.txt" is a sample file that would be the output of running PAL_FINDER, and is ready to use in the next step.
+PAL_FINDER will output: a set of PALs in a .txt file. The file "P_to_B_input.txt" is a sample file that would be the output of running PAL_FINDER, and is ready to use in the next step. If
+the user runs pal_finder using the command above, they will also generate a file called "P_to_B_input.txt"
 	
 ##4. Run the script PAL_to_BLAST.R
 
