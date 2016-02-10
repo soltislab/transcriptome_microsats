@@ -190,14 +190,23 @@ and custom scripts described below.
 ##1. Go to the main directory of your cloned repository
 
   >cd transcriptome_microsats/
+  
+...or whatever you named your clone of the repository.
 
 ##2. Download and install PAL_FINDER 
 
 http://sourceforge.net/projects/palfinder/
 	
-The file "README.txt" will guide the user on how to use PAL_FINDER
+The file "README.txt" will guide the user on how to use PAL_FINDER.
 	
-The required input for PAL_FINDER is a config file (default config.txt)
+The required input for PAL_FINDER is a config file.
+
+Use the file "config_g1.txt", which is available in the main directory;
+after you download pal_finder, move this file to the directory pal_finder_v0.02.04
+
+Next download the file "glycine_max_454_raw_all.fasta" from 
+https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
+and put it in the directory pal_finder_v0.02.04/test/data
 	
 ##3. Run PAL_FINDER
 	
@@ -205,12 +214,12 @@ We use the file "config_g1.txt" to run PAL_FINDER:
 	
 	>perl pal_finder_v0.02.04.pl config_g1.txt
 	
-PAL_FINDER will output: a set of PALs in a .txt file. The file "P_to_B_input.txt" is a sample file that would be the output of running PAL_FINDER, and is ready to use in the next step. If
-the user runs pal_finder using the command above, they will also generate a file called "P_to_B_input.txt"
+PAL_FINDER will output a set of PALs in a .txt file. Using our config_g1.txt file will output a file called "P_to_B_input.txt". There is already a file "P_to_B_input.txt" in the main directory, which the user can use for future steps. If you want to use the file that you generated with PAL_FINDER, you will need to replace the original file in the main directory with your file. 
 	
 ##4. Run the script PAL_to_BLAST.R
 
-You can use the provided file "P_to_B_input.txt" or use an output file from PAL_FINDER.  If you use a different file you need to change the name of the file read into the variable 'Input' in the script. If you run this script, it  will output two files: 'Forward.fasta' and 'Reverse.fasta' These two files are already included in the main directory of the repository.
+You can use the provided file "P_to_B_input.txt" or use an output file from PAL_FINDER.  If you use a different file, you need to change the name of the file read into the variable 'Input' in the script. If you run this script, it  will output two files: 'Forward.fasta' and 'Reverse.fasta' These two files are already included in the main directory of the repository.
+If you run the script, the existing files will be overwritten.
 
 ##5. Perform a BLASTn search
 
