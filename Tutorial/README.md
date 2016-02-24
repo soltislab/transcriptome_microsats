@@ -204,6 +204,9 @@ The required input for PAL_FINDER is a config file.
 Use the file "config_g1.txt", which is available in the main directory;
 after you download pal_finder, move this file to the directory pal_finder_v0.02.04
 
+Primer3 is in a folder in the main directory (primer3-2.0.0-alpha). You MUST edit the 
+config_g1.txt file before running PAL_FINDER so the config file contains the appropriate path to Primer3.  The variable for the path is primer3executable.  Type the full path after this variable in the config file.  
+
 Next download the file "glycine_max_454_raw_all.fasta" from 
 https://gatorbox.rc.ufl.edu/index.php/s/361JoKPasE00yql
 and put it in the directory pal_finder_v0.02.04/test/data
