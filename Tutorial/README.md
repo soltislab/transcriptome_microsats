@@ -210,8 +210,8 @@ and put it in the directory pal_finder_v0.02.04/test/data
 	
 ##3. Run PAL_FINDER
 	
-We use the file "config_g1.txt" to run PAL_FINDER:
-	
+In the directory "pal_finder_v0.02.04", run PAL_FINDER using the input file "config_g1.txt":
+
 	>perl pal_finder_v0.02.04.pl config_g1.txt
 	
 PAL_FINDER will output a set of PALs in a .txt file. Using our config_g1.txt file will output a file called "P_to_B_input.txt". There is already a file "P_to_B_input.txt" in the main directory, which the user can use for future steps. If you want to use the file that you generated with PAL_FINDER, you will need to replace the original file in the main directory with your file. 
