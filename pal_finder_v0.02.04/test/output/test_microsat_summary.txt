@@ -1,0 +1,14 @@
+totalBases:	809680
+allSpan:	0
+totalReads:	6980	(2 x 3490)
+compound:	2
+broken:	2
+allExtended:	0
+readsWithMicrosat:	26
+
+
+Microsat Type	monomer length	total loci	loci w/ primers	reads with loci	total bases	extended	extended w/ primers	spanning	spanning w/ primers
+TC	2	3	3	3	46	0	0	0	0
+AC	2	11	4	11	174	0	0	0	0
+CG	2	0	0	0	0	0	0	0	0
+AT	2	16	1	14	226	0	0	0	0
