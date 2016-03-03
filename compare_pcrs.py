@@ -44,7 +44,7 @@ sampleB= args.b
 primer_file_path="primers/"	#Folder where primer files are
 primer_file_suffix=".ePCR"	#Suffix added to name to get filename
 ePCR_file_path="ePCR_out/" #Folder where ePCR results are located
-out_path="ePCR_summary/" #where to write result files
+out_path="ePCR_summary_160303/" #where to write result files
 
 scaffold_path="../Assemblies/" #where the assemblies are located. This script needs to read all the assemblies into memory to quickly compare the amplicons. As such it will take a fair bit of RAM when it is run.
 scaffold_suffix="-SOAPdenovo-Trans-assembly.fa" #Bit after the sampleA part
@@ -53,6 +53,7 @@ scaffold_suffix="-SOAPdenovo-Trans-assembly.fa" #Bit after the sampleA part
 misa_output_path="../FilteredSSRs/"
 misa_output_suffix="-SOAPdenovo-Trans-assembly.fa.misa_SSR.results"
 
+summary_locus_count= out_path + "Loci_amplified_summary.160303.txt"
 #
 ######################################################################
 
@@ -68,8 +69,11 @@ ePCR_result_file= ePCR_file_path + str(sampleA) + ".on." + str(sampleB) + ".ePCR
 
 out_file= out_path + str(sampleA) + ".on." + str(sampleB) + ".ePCR.summary"
 
+amplification_summary= str(sampleA) + ".on." + str(sampleB)
+
 sampleA_misa_file= misa_output_path + str(sampleA) + misa_output_suffix
 sampleB_misa_file= misa_output_path + str(sampleB) + misa_output_suffix
+
 
 
 try:
@@ -84,6 +88,12 @@ except IOError:
 	print "Can't open file", out_file
 	
 
+try:
+	SummaryFile=open(summary_locus_count, 'a')
+except IOError:
+	print "Can't open summary file: ", summary_locus_count
+	
+
 class SSRlocus:
 	'A class to store information about an SSR locus--make it easier to add locus info to dictionary.'
 	def __init__(self, SSR_type, SSR_seq, SSR_size, SSR_start, SSR_end,SSR_amplicon_start, SSR_amplicon_end):
@@ -96,7 +106,8 @@ class SSRlocus:
 		self.SSR_amplicon_start=SSR_amplicon_start
 		self.SSR_amplicon_end=SSR_amplicon_end
 	
-def Read_primers_to_dict(file):
+def Read_primers_to_dict(file): 
+	'Reads primer file into a dictionary with a list of expected amplicon sizes for each scaffold. There can be multiple loci on a scaffold, thus the need to use a list here'
 	try:
 		primers=open(file, 'r')
 	except IOError:
@@ -104,15 +115,29 @@ def Read_primers_to_dict(file):
 	
 	#Get the first line so we can skip it
 	FirstLine=primers.readline()
+	num_loci=0 #Count the number of loci
+	locus_count_dict={} #Keep track of which locus we are looking at for a scaffold. There are multiple, but we don't have them numbered anymore.
 
 	primer_dict={}
+	
 	for Line in primers:
 		Line=Line.strip('\n')
 		Line_bits=re.split('\t', Line)
+		num_loci+=1
 		
-		primer_dict[Line_bits[0]]=int(Line_bits[3]) #scaffold name : size of amplicon
-		
-	return(primer_dict)
+		primer_scaffold=Line_bits[0]
+		try:
+			locus_count_dict[primer_scaffold]+=1 #Already seen this scaffold in sampleA, need to increment.
+		except:
+			locus_count_dict[primer_scaffold]=0 #This is the first time we've seen this scaffold in sampleA (index from 0)
+	
+
+		try:
+			primer_dict[primer_scaffold].append(int(Line_bits[3])) # Append size of amplicon to list of amplicons for this scaffold  (Line_bits[3] = size of amplicon)
+		except:
+			primer_dict[primer_scaffold]=[int(Line_bits[3])] #If this is the first, just add it to a list.
+			
+	return(primer_dict, num_loci)
 		
 def Read_seqs_to_dict(file):
 	try:
@@ -152,8 +177,9 @@ def Read_misa_seqs_to_dict(file):
 
  
 #Read the primer files for each sample	
-sampleA_dict=Read_primers_to_dict(sampleA_primers_file)
-sampleB_dict=Read_primers_to_dict(sampleB_primers_file)
+(sampleA_dict, sampleA_num_loci)=Read_primers_to_dict(sampleA_primers_file)
+(sampleB_dict, sampleB_num_loci)=Read_primers_to_dict(sampleB_primers_file)
+
 
 #Read the scaffolds for each file
 sampleA_scaffold_dict=Read_seqs_to_dict(sampleA_scaffold_file)
@@ -165,6 +191,7 @@ sampleA_SSR_locus_dict=Read_misa_seqs_to_dict(sampleA_misa_file)
 
 ePCR_dict={}
 locus_count_dict={} #Keep track of which locus we are looking at for a scaffold. There are multiple, but we don't have them numbered anymore.
+sampleA_loci_amplifying=[]
 
 for Line in ePCR_result:
 	Line=Line.strip('\n')
@@ -178,17 +205,23 @@ for Line in ePCR_result:
 	except:
 		locus_count_dict[sampleA_scaffold]=0 #This is the first time we've seen this scaffold in sampleA (index from 0)
 	
+	
 	sampleB_start=int(Line_bits[3])-1 #Need to do -1 this value for the correct sequence.
 	sampleB_end=int(Line_bits[4])-1
 	
 	amplicon_size=(sampleB_end-sampleB_start)+1
 	
-	size_difference= amplicon_size - sampleA_dict[sampleA_scaffold]
+	try:
+		size_difference= amplicon_size - int(sampleA_dict[sampleA_scaffold][locus_count_dict[sampleA_scaffold]])
 	
-	if sampleB_scaffold in sampleB_dict:		#Was the scaffold where the ePCR amplified in sample B also in the list of SSR loci for sample B?
-		locus_in_sampleB=1
-	else:
-		locus_in_sampleB=0
+	except:
+		print ("Can't get size for %s locus %d" %(sampleA_scaffold, locus_count_dict[sampleA_scaffold]))
+		
+		
+# 	if sampleB_scaffold in sampleB_dict:		#Was the scaffold where the ePCR amplified in sample B also in the list of SSR loci for sample B?
+# 		locus_in_sampleB=1
+# 	else:
+# 		locus_in_sampleB=0
 	
 	sampleB_amplicon=sampleB_scaffold_dict[sampleB_scaffold].seq[sampleB_start:sampleB_end]
 	
@@ -199,16 +232,23 @@ for Line in ePCR_result:
 		
 		amplicon_motif=sampleA_SSR_locus_dict[sampleA_scaffold][locus_count_dict[sampleA_scaffold]].SSR_seq
 
+		locus_name=sampleA_scaffold + "_" + str(locus_count_dict[sampleA_scaffold])
+				
+		if locus_name not in sampleA_loci_amplifying:
+			sampleA_loci_amplifying.append(locus_name)
+
 	except:
 		print "Cant get sequence for %s locus %s" %(sampleA_scaffold, locus_count_dict[sampleA_scaffold])
 		
 	sampleA_amplicon=sampleA_scaffold_dict[sampleA_scaffold].seq[amplicon_start:amplicon_end]
 	
 	
-		
+	
 	OutFile.write("%s\t%s\t%s\t%s\t%s\n" %(sampleA_scaffold, sampleB_scaffold, sampleA_amplicon, sampleB_amplicon, amplicon_motif) )
 	
-	
+
+SummaryFile.write("%s\t%d\t%d\n" %(amplification_summary,sampleA_num_loci,len(sampleA_loci_amplifying)))	#Write the summary info for each amplification #of loci # amplifying.
+
 	
 
 

@@ -6,8 +6,8 @@ library(Rcmdr)
 library(plotrix)
 
 #load file and set working directory
-setwd("~/Desktop/Microsat_review_paper/MyTrials/summary/")
-dat <- read.csv("Oenothera_10geneDistances.csv", header=TRUE)
+#setwd("~/Desktop/Microsat_review_paper/MyTrials/summary/")
+dat <- read.csv("All.header.dist.summary.160303.csv", header=TRUE)
 
 #here we determine if the ePCR was on the same species of a different one
 same <- subset(dat, dat$Primer_Source == dat$PCR_Target)
@@ -23,7 +23,8 @@ all <- (dat$all_sequence_same/(dat$all_sequence_same + dat$all_sequence_diff))
 
 ID <- dat$Genetic_Identity
 total <- dat$Number.Loci.from.Source
-amp <- (dat$microsat_length_same+dat$microsat_length_diff)
+#amp <- (dat$microsat_length_same+dat$microsat_length_diff)
+amp <- dat$Num_Amp
 prop <- amp/total
 
 #plot lines of similarity by the genetic ID (distance)
