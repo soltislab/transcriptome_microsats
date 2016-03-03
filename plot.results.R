@@ -1,0 +1,62 @@
+### This code will analyze the output from the ePCR from Oenothera
+### and plot regression lines from the different columns
+### Author: Charlotte Germain-Aubrey
+
+library(scatterplot3d)
+library(Rcmdr)
+library(plotrix)
+
+#load file and set working directory
+#setwd("~/Desktop/Microsat_review_paper/MyTrials/summary/")
+
+#setwd("~/Desktop/Microsat_review_paper/MyTrials/summary/")
+dat <- read.csv("All.header.dist.summary.160303.csv", header=TRUE)
+
+#####
+
+errors <- subset(dat, dat$Number.Loci.from.Source < dat$microsat_length_same + dat$microsat_length_diff)
+
+#####
+
+
+
+#here we determine if the ePCR was on the same species of a different one
+same <- subset(dat, dat$Primer_Source == dat$PCR_Target)
+diff <- subset(dat, dat$Primer_Source != dat$PCR_Target)
+
+#proportion of  regions being the same
+z <- ((dat$flanking1_same/(dat$flanking1_same + dat$flanking1_diff)) + 
+        (dat$flanking2_same/(dat$flanking2_same + dat$flanking2_diff))/2) 
+fl <- ((dat$flanking1_length_same/(dat$flanking1_same + dat$flanking1_diff)) + 
+         (dat$flanking2_length_same/(dat$flanking2_same + dat$flanking2_diff))/2) 
+m <- (dat$microsat_length_same/(dat$microsat_length_same + dat$microsat_length_diff)) 
+all.length <- (dat$all_sequence_length_same/
+                 (dat$all_sequence_length_same + dat$all_sequence_length_diff)) 
+all <- (dat$all_sequence_same/(dat$all_sequence_same + dat$all_sequence_diff))
+
+
+ID <- dat$Genetic_Identity
+total <- dat$Number.Loci.from.Source
+#amp <- (dat$microsat_length_same + dat$microsat_length_diff)
+amp <- dat$Num_Amp
+
+prop <- amp/total
+
+#plot lines of similarity by the genetic ID (distance)
+pdf("TrendLines10.pdf")
+par(xpd=FALSE)
+plot(ID,prop,pch='.', xlab="Genetic Identity", ylab="Proportion", col="grey", cex=0.5)
+abline(lm(z ~ ID), col = "Purple", lwd=2)
+abline(lm(fl ~ ID), col = "limegreen", lwd=2)
+abline(lm(m ~ ID), col = "royalblue", lty = 1, lwd=2)
+abline(lm(all ~ ID), col = "Red", lwd=2)
+abline(lm(all.length ~ ID), col = "orange", lty = 2, lwd=2)
+legend('topleft', bty = 'n', c("Proportion of loci amplifying", "Flanking regions same",
+                               "Flanking regions length same", "Microsatellite same", 
+                               "PCR sequence same", "PCR sequence length same"), 
+                                pch = c(15,  NA, NA, NA, NA, NA), 
+                                col = c("grey", "Purple", "limegreen", "royalblue", "Red", "orange"),
+                                border=NA, lty = c(NA, 1, 1, 1, 1, 2), x.intersp = 0.8, 
+                                y.intersp = 1, cex=1)
+dev.off()
+
