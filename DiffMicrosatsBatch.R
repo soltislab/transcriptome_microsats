@@ -1,18 +1,17 @@
 ## This scrpt is summarizing the ePCR summaries containing SSRs and flanking regions
 ## the args has the script run through all files listed in filenames, obtained by ls ePCR_summary/ > filenames in the folder /bio/soltis/1kp/SSRs
-## authors: Charlotte Germain-Aubrey, FLMNH, with Francois Michonneau, FLMNH.
-## September 2015
+## authors: Charlotte Germain-Aubrey, FLMNH, with the help of Francois Michonneau, FLMNH. 
 
 library(Hmisc)
 library(Biostrings)
 
-args=(commandArgs(TRUE))
+args<-commandArgs(TRUE)
 
-FinalTable <- matrix(data=NA, nrow = 0, ncol = 15)
+FinalTable <- matrix(data=NA, nrow = 1, ncol = 15)
 colnames(FinalTable) <- c("PCR_name", "microsat_length_same", "microsat_length_diff", "flanking1_length_same",  "flanking1_length_diff", "flanking1_same", "flanking1_diff", "flanking2_length_same",  "flanking2_length_diff", "flanking2_same", "flanking2_diff","all_sequence_length_same", "all_sequence_length_diff", "all_sequence_same", "all_sequence_diff")
 
 #table <- read.table("AJBK.on.AQXA.ePCR.summary", header=FALSE, sep="\t")
-file_name <- args()
+file_name <- args[1]
 table <- read.table(file_name, header=FALSE, sep="\t")
 colnames(table) <- c("name1", "name2", "seq1", "seq2", "micro")
 table$micro <- as.character(table$micro)
@@ -20,11 +19,15 @@ table$seq1 <- as.character(table$seq1)
 table$seq2 <- as.character(table$seq2)
 
 #extract name of ePCR
-parts <- strsplit(as.character(file_name[1]), split=".")
+file_path_split <- strsplit(as.character(file_name), split="[/]")
+just_name <- unlist(lapply(file_path_split,"[",2))
+parts <- strsplit(as.character(just_name), split="[.]")
+
 one <- unlist(lapply(parts,"[",1))
 two <- unlist(lapply(parts, "[",2))
 three <- unlist(lapply(parts, "[",3))
 PCR_name <- paste(one, two, three, sep=".")
+
 ###########################
 ## my code
 
@@ -183,8 +186,8 @@ for (i in 1:z){
 at <- length(which(a == "TRUE"))
 af <- length(which(a == "FALSE"))
 ## how many are the same length ? 
-bt <- length(which(d == "TRUE"))
-bf <- length(which(d == "FALSE"))
+bt <- length(which(b == "TRUE"))
+bf <- length(which(b == "FALSE"))
 
 ##now fill in table
 FinalTable[1,1] <- PCR_name
@@ -203,5 +206,4 @@ FinalTable[1,13] <- bf
 FinalTable[1,14] <- at
 FinalTable[1,15] <- af
 
-table_name <- paste("output/", PCR_name, "_out", sep="" )
-write.csv(FinalTable, table_name, sep = "," )
+write.table(FinalTable, file="output.Mar2016/All_data.csv", append=T, col.names=F, row.names=F, sep=",")
