@@ -8,7 +8,7 @@
 #				Department of Biology
 #				magitz@ufl.edu
 #
-# add_distances.py -i <summary table from DiffMicrosatsBatch.R> -g <a distance matrix> 
+# add_distances.py -i <summary table from DiffMicrosatsBatch.R> -g <a distance matrix> -a <summary file>
 #		-s <file with 1KP code to species translation> -o <output filename> 
 #
 ########################################################################################################################
@@ -19,6 +19,7 @@ import re
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", help="input file with the summary table of microsats")
 parser.add_argument("-g", help="genetic distance file")
+parser.add_argument("-a", help="Locus amplification summary data from compare_pcrs.py")
 parser.add_argument("-s", help="species translation file to go from 4 letter code to species name, also has # of loci in that sample's SSR primer set")
 parser.add_argument("-o", help="output file")
 
@@ -26,6 +27,7 @@ args = parser.parse_args()
 
 infile = args.i
 distance_file= args.g
+ampSummary = args.a
 species_file=args.s
 outfile = args.o
 
@@ -38,6 +40,12 @@ try:
 	DISTANCES=open(distance_file, 'r')
 except IOError:
 	print "Can't open file", distance_file
+
+try:
+	AMPSUMM=open(ampSummary, 'r')
+except IOError:
+	print "Can't open file", ampSummary
+
 
 try:
 	SPECIES=open(species_file, 'r')
@@ -65,9 +73,25 @@ for Line in SPECIES:
 	except:
 		print ("Error, couldn't add %s to Species_dict with value %s" %(Line_bits[0],Line_bits[1]))
 
+
+
+#Load the amplification summary data into dictionaries
+TotalLociDict={}
+AmplifyDict={}
+for Line in AMPSUMM:
+	Line = Line.strip('\n')			
+	Line_bits=re.split("\t",Line)		#JKNQ.on.DSVQ	3663	726
+										# PCR			Total	Amp
+										
+	PCR='"' + Line_bits[0] + '"' #Add quotes around the PCR name to match as it is in input summary file.
+	TotalLociDict[PCR]=Line_bits[1]
+	AmplifyDict[PCR]=Line_bits[2]
+
+
 Distance_dict={} # Dictionary to store the rows of the distance matrix as a list of values.
 Column_dict={} #Dictionary to store which column the species is in for the distance matrix.
 Line_number=1
+
 
 #Load the distance matrix into a dictionary.
 for Line in DISTANCES:
@@ -103,8 +127,10 @@ for Line in IN:
 	#Get the distance from the matrix for these species
 	PairDist=Distance_dict[Source_species][Column_dict[Target_species]]
 	
-	OUT.write("%s,%s,%s,%s,%s,%s\n" %(Line_bits[0], Source_species, Target_species, PairDist, Species_SSRCount_dict[PCR_bits[0]], Line_bits[1]))
-	
+	try:
+		OUT.write("%s,%s,%s,%s,%s,%s,%s\n" %(Line_bits[0], Source_species, Target_species, PairDist, AmplifyDict[Line_bits[0]], Species_SSRCount_dict[PCR_bits[0]], Line_bits[1]))
+	except:
+		print "No in for: ", Line_bits[0]
 	
 	
 	
