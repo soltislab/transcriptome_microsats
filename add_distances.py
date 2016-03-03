@@ -130,7 +130,7 @@ for Line in IN:
 	try:
 		OUT.write("%s,%s,%s,%s,%s,%s,%s\n" %(Line_bits[0], Source_species, Target_species, PairDist, AmplifyDict[Line_bits[0]], Species_SSRCount_dict[PCR_bits[0]], Line_bits[1]))
 	except:
-		print "No in for: ", Line_bits[0]
+		print "No info for: ", Line_bits[0]
 	
 	
 	
