@@ -5,14 +5,8 @@ This tutorial will walk you through the basic steps of designing microsatellites
 This tutorial assumes you have a linux like system and have Python 2.7 and Perl installed. Including the following Python packages:
  argparse
  
-This tutorial also assumes that you have R version 3.2.1 or later installed, and you will
-need to install the following R packages:
-tidyr
-scatterplot3d
-Rcmdr
-plotrix
-Hmisc
-Biostrings
+This tutorial also assumes that you have R version 3.2.1 or later installed, and you will need to install the following R packages:
+tidyr, scatterplot3d, Rcmdr, plotrix, Hmisc, Biostrings
 
 MISA can be downloaded from [here](http://pgrc.ipk-gatersleben.de/misa/). Modified versions of the primer3 scripts are in the MISA_changes directory of this repository.
 
