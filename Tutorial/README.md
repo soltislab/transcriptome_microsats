@@ -167,7 +167,7 @@ The columns are:
 
 5. BP end of the microsatellite
 
-6. BP stat of the ORF
+6. BP start of the ORF
 
 7. BP end of the ORF
 
