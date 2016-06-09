@@ -90,7 +90,6 @@ ORF_scaffold_dict={}  #dictionary to track start and end coordinates of ORFs on 
 
 
 def CompareSSRtoORF(scaffold):
-	print scaffold
 	NumberOfLoci=int(len(SSR_dict[scaffold])/4) #How many loci are we looking at on this scaffold
 	NumberOfORFs=int(len(ORF_scaffold_dict[scaffold])/2) #How many ORFs are we looking at on this scaffold
 		
