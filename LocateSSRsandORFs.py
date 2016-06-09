@@ -10,7 +10,7 @@
 #				Department of Biology
 #				magitz@ufl.edu
 #
-# Script compare the location of an SSR and the longest ORF in a given scaffold.
+# Script to compare the location of an SSR and the longest ORF in a given scaffold.
 ########################################################################################################################
 
 from Bio import SeqIO
@@ -90,10 +90,10 @@ ORF_scaffold_dict={}  #dictionary to track start and end coordinates of ORFs on 
 
 
 def CompareSSRtoORF(scaffold):
-	
+	print scaffold
 	NumberOfLoci=int(len(SSR_dict[scaffold])/4) #How many loci are we looking at on this scaffold
 	NumberOfORFs=int(len(ORF_scaffold_dict[scaffold])/2) #How many ORFs are we looking at on this scaffold
-	
+		
 	for Locus in range(1, NumberOfLoci+1):
 		
 		ThisSSRStartindex=(int(Locus) - 1 ) * 4  #Since we are adding multiple loci in a single list, we need to offset for the 2nd, 3rd, etc locus.
@@ -117,7 +117,8 @@ def CompareSSRtoORF(scaffold):
 			
 			if len(overlap) > MaxOverlap :	#for this SSR, find the maximum overlap with all ORFs on the scaffold
 				MaxOverlap=len(overlap)
-			
+				LongestOverlapORFStart=int(ORF_scaffold_dict[scaffold][ThisORFstartIndex])  #Set the start for current longest overlapping ORF
+				LongestOverlavORFEnd=int(ORF_scaffold_dict[scaffold][ThisORFendIndex])  #Set the end for current longest overlapping ORF
 			
 		if int(MaxOverlap) > 0:
 			try:
@@ -136,7 +137,7 @@ def CompareSSRtoORF(scaffold):
 			except:
 				SSR_no_overlap_count_dict[SSR_dict[scaffold][ThisSSRTypeIndex]]=1
 			
-		OutFile.write('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' %(record.id,SSR_dict[scaffold][ThisSSRTypeIndex],SSR_dict[scaffold][ThisSSRSSRIndex],SSR_dict[scaffold][ThisSSRStartindex],SSR_dict[scaffold][ThisSSREndIndex],ORFstart,ORFend,len(overlap)))
+		OutFile.write('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' %(scaffold,SSR_dict[scaffold][ThisSSRTypeIndex],SSR_dict[scaffold][ThisSSRSSRIndex],SSR_dict[scaffold][ThisSSRStartindex],SSR_dict[scaffold][ThisSSREndIndex],LongestOverlapORFStart,LongestOverlavORFEnd,len(overlap)))
 
 
 try:
