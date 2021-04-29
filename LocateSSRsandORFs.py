@@ -37,18 +37,17 @@ summaryfile=args.s
 try:
 	ResultFile=open(resultfile, 'r')
 except IOError:
-	print "Can't open file", resultfile
+	print("Can't open file", resultfile)
 
 try:
 	OutFile=open(outfile, 'w')
 except IOError:
-	print "Can't open file", outfile
+	print("Can't open file", outfile)
 	
 try:
 	SummaryFile=open(summaryfile, 'a')
 except IOError:
-	print "Can't open file", summaryfile
-
+	print("Can't open file", summaryfile)
 
 SSR_dict={}  # Dictionary for info about each locus
 SSR_locus_count=0  #Counter for number of loci for summary info
@@ -142,8 +141,7 @@ def CompareSSRtoORF(scaffold):
 try:
 	InFile=open(infile, 'r')
 except IOError:
-	print "Can't open file", infile
-
+	print("Can't open file", infile)
 
 
 #Read through the ORF file and get ORF info and write stats

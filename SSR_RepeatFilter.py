@@ -8,7 +8,7 @@ Usage="""RepeatFilter.py INPUT FILE_INDEX"""
 import sys
 
 if len(sys.argv) < 2:
-	print Usage
+	print(Usage)
 
 else:
 	InFileName = sys.argv[1] #MISA output

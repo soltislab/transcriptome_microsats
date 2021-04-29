@@ -79,19 +79,19 @@ sampleB_misa_file= misa_output_path + str(sampleB) + misa_output_suffix
 try:
 	ePCR_result=open(ePCR_result_file, 'r')
 except IOError:
-	print "Can't open file", ePCR_result_file
+	print("Can't open file", ePCR_result_file)
 
 
 try:
 	OutFile=open(out_file, 'w')
 except IOError:
-	print "Can't open file", out_file
+	print("Can't open file", out_file)
 	
 
 try:
 	SummaryFile=open(summary_locus_count, 'a')
 except IOError:
-	print "Can't open summary file: ", summary_locus_count
+	print("Can't open summary file: ", summary_locus_count)
 	
 
 class SSRlocus:
@@ -111,7 +111,7 @@ def Read_primers_to_dict(file):
 	try:
 		primers=open(file, 'r')
 	except IOError:
-		print "Can't open file", file
+		print("Can't open file", file)
 	
 	#Get the first line so we can skip it
 	FirstLine=primers.readline()
@@ -143,7 +143,7 @@ def Read_seqs_to_dict(file):
 	try:
 		sequences=open(file, 'r')
 	except IOError:
-		print "Can't open file", file
+		print("Can't open file", file)
 	
 	record_dict = SeqIO.to_dict(SeqIO.parse(file, "fasta"))
 	sequences.close()
@@ -154,7 +154,7 @@ def Read_misa_seqs_to_dict(file):
 	try:
 		misa_info=open(file, 'r')
 	except IOError:
-		print "Can't open file", file
+		print("Can't open file", file)
 	#Get the first line so we can skip it
 	FirstLine=misa_info.readline()
 	
@@ -238,7 +238,7 @@ for Line in ePCR_result:
 			sampleA_loci_amplifying.append(locus_name)
 
 	except:
-		print "Cant get sequence for %s locus %s" %(sampleA_scaffold, locus_count_dict[sampleA_scaffold])
+		print("Cant get sequence for %s locus %s" %(sampleA_scaffold, locus_count_dict[sampleA_scaffold]))
 		
 	sampleA_amplicon=sampleA_scaffold_dict[sampleA_scaffold].seq[amplicon_start:amplicon_end]
 	
