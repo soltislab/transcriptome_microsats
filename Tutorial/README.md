@@ -116,7 +116,7 @@ The script get_orfs_or_cdss.py takes the transcriptome and finds the longest ORF
 
 This should create a file with 13,530 lines identical to AMBO.1K.fna.goodScaffolds.
 
-### Older version of get_orfs_orcdss.py
+### 8.1: Older version of get_orfs_orcdss.py
 
 > The [upstream project](https://github.com/peterjc/pico_galaxy) updated the script after this tutorial was published. The instructions below work for versions before [commit 732cf22](https://github.com/peterjc/pico_galaxy/commit/732cf2292e1b8e34ec0056d4d3bdd033599fb858#diff-9c0e5bf4783e609202c0e4dd4d07e98a789021b7e92c6db276f26622cff878b0)
 
@@ -132,7 +132,7 @@ Which should produce the output:
 
 And the files AMBO.1K.ORFS.fna and AMBO.1K.ORFS.faa with 7,113 and 2,739 lines respectively and identical to Tutorial.AMBO.1K.ORFS.fna and Tutorial.AMBO.1K.ORFS.faa.
 
-### :new: 2021-04-28: Using theNewer version of get_orfs_orcdss.py
+### 8.1: :new: 2021-04-28: Using theNewer version of get_orfs_orcdss.py
 
 Old command line options: `input_file, seq_format, table, ftype, ends, mode, min_len, strand, out_nuc_file, out_prot_file, out_bed_file`
 
@@ -140,6 +140,8 @@ New command line options: `python get_orfs_or_cdss.py -i genome.fa -f fasta --ta
 
 > python get_orfs_or_cdss.py -i AMBO.1K.fna.goodScaffolds -f fasta --table 1 -t ORF -e open -m top --min_len 10 -s both --on AMBO.1K.ORFS.fna --op AMBO
 
+
+## 8.2: After running the above...
 
 Now we can summarize the location of the microsatellites relative to the identified ORFs using LocateSSRsandORFs.py:
 
