@@ -34,28 +34,28 @@ outfile = args.o
 try:
 	IN=open(infile, 'r')
 except IOError:
-	print "Can't open file", infile
+	print("Can't open file", infile)
 
 try:
 	DISTANCES=open(distance_file, 'r')
 except IOError:
-	print "Can't open file", distance_file
+	print("Can't open file", distance_file)
 
 try:
 	AMPSUMM=open(ampSummary, 'r')
 except IOError:
-	print "Can't open file", ampSummary
+	print("Can't open file", ampSummary)
 
 
 try:
 	SPECIES=open(species_file, 'r')
 except IOError:
-	print "Can't open file", species_file
+	print("Can't open file", species_file)
 
 try:
 	OUT=open(outfile, 'w')
 except IOError:
-		print "Can't open file", outfile
+		print("Can't open file", outfile)
 		
 
 #Dictionary for looking up species names with 4-letter 1KP code.
@@ -130,7 +130,7 @@ for Line in IN:
 	try:
 		OUT.write("%s,%s,%s,%s,%s,%s,%s\n" %(Line_bits[0], Source_species, Target_species, PairDist, AmplifyDict[Line_bits[0]], Species_SSRCount_dict[PCR_bits[0]], Line_bits[1]))
 	except:
-		print "No info for: ", Line_bits[0]
+		print("No info for: ", Line_bits[0])
 	
 	
 	
